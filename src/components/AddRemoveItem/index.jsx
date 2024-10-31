@@ -18,7 +18,7 @@ export function AddRemoveItem({ handleNumberDishes }) {
 
   useEffect(() => {
     handleNumberDishes(quantity)
-  }, [quantity])
+  }, [quantity, handleNumberDishes])
 
   return(
     <Container>
