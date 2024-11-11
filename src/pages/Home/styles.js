@@ -135,7 +135,7 @@ export const PlatesFood = styled.section`
       display: flex;
       align-items: center;
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      width: 18rem;
+      width: 3.2rem;
       height: 462px;
       position: absolute;
       top: 22px;
@@ -148,7 +148,7 @@ export const PlatesFood = styled.section`
         to left,
         ${({ theme }) => theme.COLORS.GRADIENT_100}
       );
-      justify-content: start;
+      justify-content: end;
       padding-left: 3.2rem;
     }
 
@@ -159,7 +159,7 @@ export const PlatesFood = styled.section`
         ${({ theme }) => theme.COLORS.GRADIENT_100}
       );
       padding-right: 3.2rem;
-      justify-content: end;
+      justify-content: start;
     }
 
     .swiper-button-prev:after,

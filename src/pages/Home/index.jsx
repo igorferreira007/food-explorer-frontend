@@ -27,9 +27,14 @@ export function Home() {
   const [search, setSearch] = useState("")
   const [dishes, setDishes] = useState([])
   const [ingredients, setIngredients] = useState([])
+  const [numberOrder, setNumberOrder] = useState("0")
 
   function handleSearchChange(newValue) {
     setSearch(newValue)
+  }
+
+  function handleOrder(numberDishes) {
+    setNumberOrder(numberDishes)
   }
 
   // Hook para verificar o tamanho da tela
@@ -48,10 +53,10 @@ export function Home() {
 
   useEffect(() => {
     async function fetchDishes() {
-      let response = await api.get(`/dishes?name=${search}&ingredients`)
+      let response = await api.get(`/dishes?name=${search.toLowerCase()}&ingredients`, { withCredentials: true })
       
       if (response.data.length === 0) {
-        response = await api.get(`/dishes?name&ingredients=${search}`)
+        response = await api.get(`/dishes?name&ingredients=${search.toLowerCase()}`, { withCredentials: true })
       }
       setDishes(response.data)
     }
@@ -61,7 +66,7 @@ export function Home() {
 
   return (
     <Container>
-      <Header onChangeSearch={handleSearchChange} />
+      <Header onChangeSearch={handleSearchChange} numberOrders={numberOrder} />
       <main>
         <Banner>
           <img src={imageBanner} alt="" />
@@ -81,7 +86,30 @@ export function Home() {
             modules={[Navigation, Pagination]}
           >
             {
-              dishes.map(dish => (
+              dishes.filter(dish => dish.category == "Refeição").map(dish => (
+                <SwiperSlide key={String(dish.id)}>
+                  <CardItem
+                    to={`/details/${dish.id}`}
+                    food={dish}
+                    handleOrder={handleOrder}
+                  />
+                </SwiperSlide>
+              ))
+            }
+          </Swiper>
+        </PlatesFood>
+
+        <PlatesFood>
+          <h2>Sobremesas</h2>
+          <Swiper 
+            slidesPerView="auto" 
+            spaceBetween={16} 
+            navigation
+            loop={isDesktop}
+            modules={[Navigation, Pagination]}
+          >
+            {
+              dishes.filter(dish => dish.category == "Sobremesa").map(dish => (
                 <SwiperSlide key={String(dish.id)}>
                   <CardItem
                     to={`/details/${dish.id}`}
@@ -94,54 +122,24 @@ export function Home() {
         </PlatesFood>
 
         <PlatesFood>
-          <h2>Pratos principais</h2>
-          
+          <h2>Bebidas</h2>
           <Swiper 
             slidesPerView="auto" 
             spaceBetween={16} 
             navigation
-            modules={[Navigation]}
+            loop={isDesktop}
+            modules={[Navigation, Pagination]}
           >
-            <SwiperSlide>
-              <CardItem 
-                food={{
-                  name: "Prugna Pie",
-                  price: "79,97",
-                  image: ravanello,
-                }}
-              />
-            </SwiperSlide>
-            
-          </Swiper>
-        </PlatesFood>
-
-        <PlatesFood>
-          <h2>Pratos principais</h2>
-          
-          <Swiper 
-            slidesPerView="auto" 
-            spaceBetween={16} 
-            navigation
-            modules={[Navigation]}
-          >
-            <SwiperSlide>
-              <CardItem 
-                food={{
-                  name: "Salada Ravanello",
-                  price: "49,97",
-                  image: ravanello,
-                }}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardItem 
-                food={{
-                  name: "Spaguetti Gambe",
-                  price: "79,97",
-                  image: gambe,
-                }}
-              />
-            </SwiperSlide>
+            {
+              dishes.filter(dish => dish.category == "Bebida").map(dish => (
+                <SwiperSlide key={String(dish.id)}>
+                  <CardItem
+                    to={`/details/${dish.id}`}
+                    food={dish}
+                  />
+                </SwiperSlide>
+              ))
+            }
           </Swiper>
         </PlatesFood>
       </main>

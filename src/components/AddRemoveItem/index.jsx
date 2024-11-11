@@ -3,7 +3,7 @@ import minus from "../../assets/Minus.svg"
 import plus from "../../assets/Plus.svg"
 import { useState, useEffect } from "react"
 
-export function AddRemoveItem({ handleNumberDishes }) {
+export function AddRemoveItem({ handleNumberDishes = () => {} }) {
   const [quantity, setQuantity] = useState(1)
 
   function addQuantity() {

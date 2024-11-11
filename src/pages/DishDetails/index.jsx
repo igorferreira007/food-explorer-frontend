@@ -18,8 +18,10 @@ export function DishDetails() {
   const { user } = useAuth()
 
   const [menuIsOpen, setMenuIsOpen] = useState(false)
-  const [dish, setDish] = useState(null)
+  const [dish, setDish] = useState({})
   const [numberDishes, setNumberDishes] = useState(1)
+  const [price, setPrice] = useState(0)
+  const [numberOrder, setNumberOrder] = useState("0")
 
   const navigate = useNavigate()
   const params = useParams()
@@ -35,20 +37,33 @@ export function DishDetails() {
     setNumberDishes(newNumberDishes)
   }
 
+  function handleOrder() {
+    setNumberOrder(numberDishes)
+  }
+
   useEffect(() => {
     async function fetchDish() {
       const response = await api.get(`/dishes/${params.id}`)
       setDish(response.data)
-      
     }
 
     fetchDish()
   }, [])
 
+  useEffect(() => {
+    function calculatePrice() {
+      if (dish && dish.price) {
+        setPrice(dish.price * numberDishes)
+      }
+    }
+
+    calculatePrice()
+  }, [numberDishes, dish])
+
   return (
     <Container>
       <Menu menuIsOpen={menuIsOpen} onCloseMenu={() => setMenuIsOpen(false)} />
-      <Header isAdmin onOpenMenu={() => setMenuIsOpen(true)} />
+      <Header isAdmin onOpenMenu={() => setMenuIsOpen(true)} numberOrders={numberOrder} />
       
       {
         dish &&
@@ -74,14 +89,15 @@ export function DishDetails() {
 
             {user.is_admin ? (
               <div>
-                <Button title="Editar prato" to="/edit" />
+                <Button title="Editar prato" to={`/edit/${dish.id}`} />
               </div>
             ) : (
               <div>
                 <AddRemoveItem handleNumberDishes={changeNumberDishes} />
-                <ButtonDetails>
+                
+                <ButtonDetails onClick={handleOrder}>
                   <img src={receipt} alt="" />
-                  pedir ∙ R$ {dish.price * numberDishes}
+                  pedir ∙ R$ {price.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </ButtonDetails>
               </div>
             )}

@@ -40,6 +40,11 @@ export function SignIn() {
               id="password" 
               type="password" 
               onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  handleSignIn();
+                }
+              }}
             />
           </div>
           <Button title="Entrar" onClick={handleSignIn} />

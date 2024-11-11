@@ -21,6 +21,10 @@ export const Container = styled.div`
 `
 
 export const Form = styled.form`
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
   .imagePlate {
     display: flex;
     flex-direction: column;

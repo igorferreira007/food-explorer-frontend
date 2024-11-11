@@ -12,11 +12,16 @@ import { PiReceipt } from "react-icons/pi"
 import { PiSignOutBold } from "react-icons/pi"
 import { useAuth } from "../../hooks/auth"
 
-export function Header({ onOpenMenu, onChangeSearch }) {
+export function Header({ onChangeSearch, numberOrders = "0" }) {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
   const { user, signOut } = useAuth()
 
   const navigate = useNavigate()
+
+  function handleSignOut() {
+    navigate("/")
+    signOut()
+  }
 
   return (
     <Container>
@@ -38,16 +43,16 @@ export function Header({ onOpenMenu, onChangeSearch }) {
           user.is_admin ? (
             <Button className="btnReceipt" title="Novo prato" to="/new" />
           ) :
-          <Button className="btnReceipt" icon={PiReceipt} title="Pedidos" amountOfOrders="0" />
+          <Button className="btnReceipt" icon={PiReceipt} title="Pedidos" amountOfOrders={numberOrders} />
         }
 
-        <button title="Sair" onClick={signOut} className="btnSignOut">
+        <button title="Sair" onClick={handleSignOut} className="btnSignOut">
           <PiSignOutBold />
         </button>
 
         <button className="receipt">
           <img src={receipt} alt="" />
-          <span>0</span>
+          <span>{numberOrders}</span>
         </button>
       </div>
     </Container>

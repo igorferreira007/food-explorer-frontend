@@ -113,6 +113,12 @@ export const Container = styled.div`
       line-height: 160%;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
       text-align: center;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Número máximo de linhas */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     > div {

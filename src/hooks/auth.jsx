@@ -1,22 +1,22 @@
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useCookies } from "react"
 import { api } from "../service/api"
+import Cookies from 'js-cookie'
 
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
   const [data, setData] = useState({})
 
+  const [cookies, setCookie, removeCookie] = useCookies(['token'])
+
   async function signIn({ email, password }) {
     try {
-      const response = await api.post("/sessions", { email, password })
-      const { user, token } = response.data
+      const response = await api.post("/sessions", { email, password }, { withCredentials: true })
+      const { user } = response.data
 
       localStorage.setItem("@foodexplorer:user", JSON.stringify(user))
-      localStorage.setItem("@foodexplorer:token", token)
 
-      api.defaults.headers.common[`Authorization`] = `Bearer ${token}`
-
-      setData({ user, token })
+      setData({ user })
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message)
@@ -28,21 +28,16 @@ function AuthProvider({ children }) {
 
   function signOut() {
     localStorage.removeItem("@foodexplorer:user")
-    localStorage.removeItem("@foodexplorer:token")
-
+    removeCookie()
     setData({})
   }
 
   useEffect(() => {
     const user = localStorage.getItem("@foodexplorer:user")
-    const token = localStorage.getItem("@foodexplorer:token")
 
-    if (token && user) {
-      api.defaults.headers.common[`Authorization`] = `Bearer ${token}`
-      
+    if (user) {
       setData({
-        user: JSON.parse(user),
-        token
+        user: JSON.parse(user)
       })
     }
   }, [])

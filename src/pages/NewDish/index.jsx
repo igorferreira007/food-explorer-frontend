@@ -48,7 +48,7 @@ export function NewDish() {
 
     dishForm.append("name", name)
     dishForm.append("description", description)
-    dishForm.append("price", price)
+    dishForm.append("price", Number(price.replace(",", ".")))
     dishForm.append("category", category)
     dishForm.append("ingredients", JSON.stringify(ingredients))
 
@@ -103,7 +103,7 @@ export function NewDish() {
                 <Label htmlFor="imagePlate">Imagem do prato</Label>
                 <input type="file" id="imagePlate" onChange={handleChangeImage} />
 
-                <div>
+                <div className="cursor-pointer">
                   <PiUploadSimple />
                   {image ? image.name : "Selecione imagem"}
                 </div>
@@ -123,9 +123,8 @@ export function NewDish() {
                 <select name="" value={category} id="category" onChange={e => setCategory(e.target.value)}>
                   <option value=""></option>
                   <option value="Refeição">Refeição</option>
-                  <option value="Lanche">Lanche</option>
-                  <option value="Bebida">Bebida</option>
                   <option value="Sobremesa">Sobremesa</option>
+                  <option value="Bebida">Bebida</option>
                 </select>
               </div>
             </div>
@@ -148,7 +147,12 @@ export function NewDish() {
                     placeholder="Adicionar" 
                     value={newIngredient}
                     onChange={e => setNewIngredient(e.target.value)}
-                    onClick={handleAddIngredient}
+                    onClick={() => newIngredient && handleAddIngredient()}
+                    onKeyDown={e => {
+                      if (e.key === "Enter") {
+                        newIngredient && handleAddIngredient()
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -158,6 +162,7 @@ export function NewDish() {
                 <Input 
                   placeholder="R$ 00,00" 
                   id="price" 
+                  type="number"
                   onChange={e => setPrice(e.target.value)}
                 />
               </div>

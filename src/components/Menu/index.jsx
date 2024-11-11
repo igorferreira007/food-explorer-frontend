@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Container, Header, Button } from "./styles"
 import { Input } from "../Input"
 import { Footer } from "../Footer"
@@ -7,12 +8,17 @@ import x from "../../assets/Close.svg"
 import { FiSearch } from "react-icons/fi"
 
 export function Menu({ menuIsOpen, onCloseMenu }) {
-  const { user } = useAuth()
+  const { user, signOut } = useAuth()
+  const navigate = useNavigate()
 
   if (menuIsOpen) {
     document.body.style.overflow = 'hidden';
   } else {
     document.body.style.overflow = 'auto';
+  }
+
+  function handleNewDish() {
+    navigate("/new")
   }
 
   return(
@@ -28,9 +34,9 @@ export function Menu({ menuIsOpen, onCloseMenu }) {
         <Input icon={FiSearch} placeholder="Busque por pratos ou ingredientes" />
 
         {
-          user.is_admin ? <Button>Novo prato</Button> : null
+          user.is_admin ? <Button onClick={handleNewDish}>Novo prato</Button> : null
         }
-        <Button>Sair</Button>
+        <Button onClick={signOut}>Sair</Button>
       </nav>
 
       <Footer />

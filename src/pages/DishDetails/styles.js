@@ -27,6 +27,10 @@ export const Container = styled.div`
       > button {
         margin-bottom: 4.4rem;
       }
+
+      > a:first-child {
+        margin-bottom: 4.2rem;
+      }
     }
   }
 `
