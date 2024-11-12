@@ -69,3 +69,7 @@ O terminal exibirá o endereço local onde a aplicação está sendo executada. 
 
     E-mail: admin@email.com
     Senha: 123456
+
+### Resultado final
+
+O resultado final pode ser visto em: https://food-3xplorer.netlify.app/
