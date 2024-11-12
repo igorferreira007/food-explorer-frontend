@@ -51,7 +51,6 @@ Clone os repositórios para o frontend e backend do projeto:
    ```
    $ cd food-explorer-frontend
 
-   
 2. Instale as dependências:
 
     ```
@@ -62,14 +61,11 @@ Clone os repositórios para o frontend e backend do projeto:
     ```
     $ npm run dev
     
-    
 O terminal exibirá o endereço local onde a aplicação está sendo executada. O endereço padrão para acesso é:
 
-    ```
     http://localhost:5173/
 
 ### Usuário Admin para Testes
 
-    ```
     E-mail: admin@email.com
     Senha: 123456
