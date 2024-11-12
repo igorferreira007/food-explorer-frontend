@@ -1,13 +1,10 @@
-import { createContext, useContext, useState, useEffect, useCookies } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 import { api } from "../service/api"
-import Cookies from 'js-cookie'
 
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
   const [data, setData] = useState({})
-
-  const [cookies, setCookie, removeCookie] = useCookies(['token'])
 
   async function signIn({ email, password }) {
     try {
@@ -26,9 +23,9 @@ function AuthProvider({ children }) {
     }
   }
 
-  function signOut() {
+  async function signOut() {
     localStorage.removeItem("@foodexplorer:user")
-    removeCookie()
+
     setData({})
   }
 

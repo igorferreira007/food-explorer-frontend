@@ -40,14 +40,14 @@ export function Home() {
   // Hook para verificar o tamanho da tela
   useEffect(() => {
     function handleResize() {
-      setIsDesktop(window.innerWidth >= 1200); // Considerando 1024px como "desktop"
+      setIsDesktop(window.innerWidth >= 1200)
     }
 
-    handleResize(); // Verifica o tamanho na montagem inicial
-    window.addEventListener('resize', handleResize); // Atualiza ao redimensionar
+    handleResize();
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('resize', handleResize); // Limpa o event listener ao desmontar
+      window.removeEventListener('resize', handleResize)
     };
   }, [])
 

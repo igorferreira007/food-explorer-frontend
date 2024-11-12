@@ -78,8 +78,6 @@ export function EditDish() {
     const dishUpdate = Object.assign(dish, updated)
 
     await updateDish({ dish: dishUpdate, imageFile })
-
-    // navigate("/")
   }
 
   async function updateDish({ dish, imageFile }) {

@@ -7,7 +7,7 @@ export const Container = styled.div`
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  line-height: 100%; /* 16px */
+  line-height: 100%;
 
   > button {
     width: 2.4rem;

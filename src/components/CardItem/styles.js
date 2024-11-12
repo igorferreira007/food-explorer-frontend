@@ -2,8 +2,6 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.COLORS.DARK_200};
-  /* width: 21rem;
-  height: 29.2rem; */
   width: 100%;
   height: 100%;
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
@@ -12,7 +10,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  //justify-content: space-between;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -79,7 +76,6 @@ export const Container = styled.div`
     margin-top: auto;
 
     > button:last-child {
-      /* width: 16.2rem; */
       width: 100%;
       height: 3.2rem;
 
@@ -115,7 +111,7 @@ export const Container = styled.div`
       text-align: center;
 
       display: -webkit-box;
-      -webkit-line-clamp: 2; /* Número máximo de linhas */
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
