@@ -37,7 +37,7 @@ Clone os repositórios para o frontend e backend do projeto:
 3. Instale as dependências:
 
     ```
-    $ cd food-explorer-backend
+    $ npm install
     
 4. Inicie o servidor do backend:
 
